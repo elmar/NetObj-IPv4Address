@@ -31,6 +31,21 @@ sub is_valid {
     return !! _to_binary($ipaddr);
 }
 
+has binary => (
+    is => 'ro',
+);
+
+sub BUILDARGS {
+    my ($class, $ip, @args) = @_;
+    croak 'no IPv4 address given' unless defined($ip);
+    croak 'too many arguments in constructor for ' . __PACKAGE__ if @args;
+
+    $ip = _to_binary($ip);
+    croak 'invalid IPv4 address' unless $ip;
+
+    return { binary => $ip };
+}
+
 1;
 
 =head1 SYNOPSIS
@@ -57,3 +72,18 @@ IPv4 address represented by a string.  It does not throw an exception but
 returns false for an invalid and true for a valid IPv4 address.
 
 If called on an object it does throw an exception.
+
+=method new
+
+The constructor expects exactly one argument representing an IPv4 address as a
+string in the usual form of 4 decimal numbers between 0 and 255 separated by
+dots.
+
+It throws an exception for invalid IPv4 addresses.
+
+=method binary
+
+The C<binary> method returns the raw 4 bytes of the IPv4 address.
+
+=for Pod::Coverage
+BUILDARGS
