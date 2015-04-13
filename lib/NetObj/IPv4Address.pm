@@ -54,6 +54,8 @@ sub to_string {
     return join('.', unpack('CCCC', $self->binary()));
 }
 
+use overload q("") => sub {shift->to_string};
+
 1;
 
 =head1 SYNOPSIS
@@ -65,6 +67,7 @@ sub to_string {
 
   # convert to string
   $ip->to_string(); # "127.0.0.1"
+  "$ip" ; # "127.0.0.1" by implicit stringification
 
   # test for validity
   NetObj::IPv4Address::is_valid('127.0.0.1'); # true
@@ -101,6 +104,8 @@ It throws an exception for invalid IPv4 addresses.
 
 The method C<to_string> returns the canonical string representation of the IPv4
 address as dotted decimal octets.
+
+Implicit stringification in string context is supported.
 
 =method binary
 
