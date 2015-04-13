@@ -48,6 +48,12 @@ sub BUILDARGS {
     return { binary => $ip };
 }
 
+sub to_string {
+    my ($self) = @_;
+
+    return join('.', unpack('CCCC', $self->binary()));
+}
+
 1;
 
 =head1 SYNOPSIS
@@ -56,6 +62,9 @@ sub BUILDARGS {
 
   # constructor
   my $ip = NetObj::IPv4Address->new('127.0.0.1');
+
+  # convert to string
+  $ip->to_string(); # "127.0.0.1"
 
   # test for validity
   NetObj::IPv4Address::is_valid('127.0.0.1'); # true
@@ -87,6 +96,11 @@ dots.
 Raw 4 byte IPv4 addresses are supported.
 
 It throws an exception for invalid IPv4 addresses.
+
+=method to_string
+
+The method C<to_string> returns the canonical string representation of the IPv4
+address as dotted decimal octets.
 
 =method binary
 
