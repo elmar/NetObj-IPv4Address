@@ -63,18 +63,18 @@ use overload q("") => sub {shift->to_string};
   use NetObj::IPv4Address;
 
   # constructor
-  my $ip = NetObj::IPv4Address->new('127.0.0.1');
+  my $ip1 = NetObj::IPv4Address->new('127.0.0.1');
 
   # convert to string
-  $ip->to_string(); # "127.0.0.1"
-  "$ip" ; # "127.0.0.1" by implicit stringification
+  $ip1->to_string(); # "127.0.0.1"
+  "$ip1" ; # "127.0.0.1" by implicit stringification
 
   # test for validity
   NetObj::IPv4Address::is_valid('127.0.0.1'); # true
   NetObj::IPv4Address::is_valid('1.2.3.4.5'); # false
 
   # construct from raw binary IPv4 address (4 bytes)
-  my $ip = NetObj::IPv4Address->new("\x7f\x00\x00\x01"); # 127.0.0.1
+  my $ip2 = NetObj::IPv4Address->new("\x7f\x00\x00\x01"); # 127.0.0.1
 
 =head1 DESCRIPTION
 
