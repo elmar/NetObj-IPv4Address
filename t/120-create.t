@@ -20,8 +20,8 @@ my %valid_ips = (
 );
 for my $ipaddr (keys %valid_ips) {
     my $ip = NetObj::IPv4Address->new($ipaddr);
-    is(ref($ip), 'NetObj::IPv4Address', "generate object for $ipaddr");
-    is($ip->binary(), $valid_ips{$ipaddr}, "stored correctly for $ipaddr");
+    is(ref($ip), 'NetObj::IPv4Address', "generate object for $ip");
+    is($ip->binary(), $valid_ips{$ipaddr}, "stored correctly for $ip");
 }
 
 # cloning is valid

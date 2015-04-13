@@ -18,7 +18,6 @@ my %ip_list = (
 );
 for my $ipaddr (keys %ip_list) {
     my $ip = NetObj::IPv4Address->new($ipaddr);
-    my $ip_string = $ip->to_string();
-    is($ip_string, $ip_list{$ipaddr}, "convert to string for $ip_string");
-    is("$ip", $ip_list{$ipaddr}, "implicit stringification for $ip_string");
+    is($ip->to_string(), $ip_list{$ipaddr}, "convert to string for $ip");
+    is("$ip", $ip_list{$ipaddr}, "implicit stringification for $ip");
 }
