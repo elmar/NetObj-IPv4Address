@@ -58,7 +58,7 @@ use overload q("") => sub {shift->to_string};
 
 use overload q(<=>) => sub {
     my ($a, $b) = @_;
-    return ($a->binary() cmp $b->binary());
+    return ($a->binary() cmp NetObj::IPv4Address->new($b)->binary());
 };
 
 use overload q(cmp) => sub { my ($a, $b) = @_; return $a <=> $b; };

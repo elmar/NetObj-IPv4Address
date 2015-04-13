@@ -23,3 +23,10 @@ cmp_ok($ip1, '!=', $ip3, 'different IP address: not equal numeric');
 cmp_ok($ip1, 'eq', $ip1, 'same object: equal stringwise');
 cmp_ok($ip1, 'eq', $ip2, 'different object, same IP address: equal stringwise');
 cmp_ok($ip1, 'ne', $ip3, 'different IP address: not equal stringwise');
+
+# string in second operand of comparison
+cmp_ok($ip1, '==', '127.0.0.1', 'comparison with string, numeric');
+cmp_ok($ip1, '==', "\x7f\x00\x00\x01", 'comparison with raw binary, numeric');
+cmp_ok($ip1, 'eq', '127.0.0.1', 'comparison with string, stringwise');
+cmp_ok($ip1, 'eq', "\x7f\x00\x00\x01", 'comparison with raw binary, stringwise');
+
