@@ -24,6 +24,11 @@ for my $ipaddr (keys %valid_ips) {
     is($ip->binary(), $valid_ips{$ipaddr}, "stored correctly for $ipaddr");
 }
 
+# cloning is valid
+my $ip1 = NetObj::IPv4Address->new('127.0.0.1');
+my $ip2 = NetObj::IPv4Address->new($ip1);
+is(ref($ip2), 'NetObj::IPv4Address', 'cloning a NetObj::IPv4Address object');
+
 for my $ipaddr (
     '256.1.1.1',  # each byte only up to 255
     '1.256.1.1',

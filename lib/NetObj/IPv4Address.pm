@@ -40,6 +40,8 @@ sub BUILDARGS {
     croak 'no IPv4 address given' unless defined($ip);
     croak 'too many arguments in constructor for ' . __PACKAGE__ if @args;
 
+    return { binary => $ip->binary() } if ref($ip) eq __PACKAGE__;
+
     $ip = _to_binary($ip) unless length($ip) == 4;
     croak 'invalid IPv4 address' unless $ip;
 
@@ -58,6 +60,9 @@ sub BUILDARGS {
   # test for validity
   NetObj::IPv4Address::is_valid('127.0.0.1'); # true
   NetObj::IPv4Address::is_valid('1.2.3.4.5'); # false
+
+  # construct from raw binary IPv4 address (4 bytes)
+  my $ip = NetObj::IPv4Address->new("\x7f\x00\x00\x01"); # 127.0.0.1
 
 =head1 DESCRIPTION
 
@@ -78,6 +83,8 @@ If called on an object it does throw an exception.
 The constructor expects exactly one argument representing an IPv4 address as a
 string in the usual form of 4 decimal numbers between 0 and 255 separated by
 dots.
+
+Raw 4 byte IPv4 addresses are supported.
 
 It throws an exception for invalid IPv4 addresses.
 
