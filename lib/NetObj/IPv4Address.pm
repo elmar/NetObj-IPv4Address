@@ -40,7 +40,7 @@ sub BUILDARGS {
     croak 'no IPv4 address given' unless defined($ip);
     croak 'too many arguments in constructor for ' . __PACKAGE__ if @args;
 
-    $ip = _to_binary($ip);
+    $ip = _to_binary($ip) unless length($ip) == 4;
     croak 'invalid IPv4 address' unless $ip;
 
     return { binary => $ip };

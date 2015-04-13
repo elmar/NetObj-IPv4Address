@@ -16,6 +16,7 @@ my %valid_ips = (
     '255.255.255.255' => "\377\377\377\377",
     '1.2.3.4' => "\1\2\3\4",         # typical
     '127.0.0.1' => "\177\0\0\1",
+    "\177\0\0\1" => "\177\0\0\1",    # raw binary
 );
 for my $ipaddr (keys %valid_ips) {
     my $ip = NetObj::IPv4Address->new($ipaddr);
