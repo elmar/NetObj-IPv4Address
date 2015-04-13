@@ -56,6 +56,13 @@ sub to_string {
 
 use overload q("") => sub {shift->to_string};
 
+use overload q(<=>) => sub {
+    my ($a, $b) = @_;
+    return ($a->binary() cmp $b->binary());
+};
+
+use overload q(cmp) => sub { my ($a, $b) = @_; return $a <=> $b; };
+
 1;
 
 =head1 SYNOPSIS
@@ -68,6 +75,15 @@ use overload q("") => sub {shift->to_string};
   # convert to string
   $ip1->to_string(); # "127.0.0.1"
   "$ip1" ; # "127.0.0.1" by implicit stringification
+
+  # comparison, numerically and stringwise
+  my $ip2 = NetObj::IPv4Address->new('192.168.0.1');
+  $ip1 == $ip1; # true
+  $ip1 == $ip2; # false
+  $ip1 != $ip2; # true
+  $ip1 eq $ip1; # true
+  $ip1 eq $ip2; # false
+  $ip1 ne $ip2; # true
 
   # test for validity
   NetObj::IPv4Address::is_valid('127.0.0.1'); # true
