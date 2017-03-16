@@ -1,5 +1,9 @@
 Revision history for NetObj::IPv4Address
 
+1.0.2   2017-03-16
+        - remove dependency on List::MoreUtils which is not
+          in CORE
+
 1.0.1   2017-03-16
         - eliminate dependencies on Moo and namespace::clean
           while still retaining ability to extend as (foreign)
