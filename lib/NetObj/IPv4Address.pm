@@ -5,7 +5,6 @@ package NetObj::IPv4Address;
 
 # ABSTRACT: represent a IPv4 address
 
-use Moo;
 use Carp;
 use List::MoreUtils qw( all );
 
@@ -21,7 +20,6 @@ sub _to_binary {
     return pack('CCCC', @octets);
 }
 
-use namespace::clean;
 
 sub is_valid {
     my ($ipaddr) = @_;
@@ -31,9 +29,10 @@ sub is_valid {
     return !! _to_binary($ipaddr);
 }
 
-has binary => (
-    is => 'ro',
-);
+sub binary {
+    my ($self) = @_;
+    return $self->{binary};
+}
 
 sub BUILDARGS {
     my ($class, $ip, @args) = @_;
@@ -46,6 +45,11 @@ sub BUILDARGS {
     croak 'invalid IPv4 address' unless $ip;
 
     return { binary => $ip };
+}
+
+sub new {
+    my ($class, @args) = @_;
+    return bless BUILDARGS(@_), $class
 }
 
 sub to_string {
@@ -95,8 +99,6 @@ use overload q(cmp) => sub { my ($a, $b) = @_; return $a <=> $b; };
 =head1 DESCRIPTION
 
 NetObj::IPv4Address represents IPv4 addresses.
-
-NetObj::IPv4Address is implemented as a Moose style object class (using Moo).
 
 =method is_valid
 
