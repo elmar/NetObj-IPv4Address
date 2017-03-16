@@ -6,20 +6,18 @@ package NetObj::IPv4Address;
 # ABSTRACT: represent a IPv4 address
 
 use Carp;
-use List::MoreUtils qw( all );
 
 sub _to_binary {
     my ($ipaddr) = @_;
 
     my @octets = split(qr{\.}, $ipaddr);
     return unless @octets == 4;
-    return unless all {
-        ($_ =~ m{\A \d+ \Z}xms) and ($_ >=0) and ($_ <= 255);
+    return if grep {
+        ($_ !~ m{\A \d+ \Z}xms) or ($_ > 255);
     } @octets;
 
     return pack('CCCC', @octets);
 }
-
 
 sub is_valid {
     my ($ipaddr) = @_;
